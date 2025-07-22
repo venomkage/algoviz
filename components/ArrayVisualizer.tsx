@@ -10,12 +10,13 @@ export default function ArrayVisualizer({ array }: ArrayVisualizerProps) {
             {array.map((value, index) => (
                 <div
                     key={index}
-                    className="bg-blue-500"
+                    className="bg-blue-500 transition-all duration-200"
                     style={{
                         width: "10px",
-                        height: `${value * 2}px`, // Scale height
+                        height: `${value * 2}px`,
                     }}
                 />
+
             ))}
         </div>
     );
