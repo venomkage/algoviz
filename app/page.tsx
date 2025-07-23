@@ -11,6 +11,8 @@ export default function Home() {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [intervalId, setIntervalId] = useState<NodeJS.Timeout | null>(null);
+  const [sortTime, setSortTime] = useState<number | null>(null);
+
 
   useEffect(() => {
     if (isPlaying && steps.length > 0 && currentStep < steps.length - 1) {
@@ -52,6 +54,12 @@ export default function Home() {
         </p>
       )}
 
+      {sortTime !== null && (
+        <p className="text-sm text-gray-600 mt-1">
+          Sort Time: <strong>{sortTime.toFixed(2)}</strong> ms
+        </p>
+      )}
+
 
       {steps.length > 0 && (
         <div className="flex gap-2 mt-2">
@@ -81,8 +89,10 @@ export default function Home() {
           setIsPlaying(false);
           setSteps([]);
           setCurrentStep(0);
+          setSortTime(null); // reset timing
           setArray(generateRandomArray(30, 5, 100));
         }}
+
         className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
       >
         Generate New Array
@@ -92,7 +102,11 @@ export default function Home() {
         <button
           onClick={() => {
             if (steps.length === 0) {
+              const t0 = performance.now();
               const recordedSteps = bubbleSortSteps(array);
+              const t1 = performance.now();
+
+              setSortTime(t1 - t0); // ⏱️ Save time in ms
               setSteps(recordedSteps);
               setCurrentStep(0);
               setIsPlaying(true);
@@ -100,6 +114,7 @@ export default function Home() {
               setIsPlaying((prev) => !prev);
             }
           }}
+
           className={`px-4 py-2 rounded text-white ${isPlaying ? "bg-yellow-600 hover:bg-yellow-700" : "bg-green-600 hover:bg-green-700"
             }`}
         >
