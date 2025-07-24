@@ -17,10 +17,6 @@ AlgoViz is a web-based tool built with Next.js and TypeScript to visualize and a
 - [Tailwind CSS](https://tailwindcss.com/)
 - TypeScript
 
-## 📸 Screenshots
-
-*(Include if you have any — optional)*
-
 ## 🛠️ Setup Instructions
 
 ```bash
